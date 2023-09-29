@@ -50,3 +50,17 @@ spec:
         value: ["--count","--max-complexity=10","--max-line-length=127","--ignore=E101,E117,E303,W191,W292,W391,E265,E501,W291,E302","--statistics"]
       runAfter:
         - clone
+        
+    - name: tests
+      workspaces:
+        - name: source
+          workspace: pipeline-workspace
+      taskRef:
+        name: nose
+      params:
+      - name: database_uri
+        value: "sqlite:///test.db"
+      - name: args
+        value: "-v --with-spec --spec-color"
+      runAfter:
+        - clone
